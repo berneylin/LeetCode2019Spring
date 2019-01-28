@@ -1,3 +1,6 @@
 .DS_Store
 ._*
 *.out
+.idea
+cmake-build-debug
+CMakeLists.txt
