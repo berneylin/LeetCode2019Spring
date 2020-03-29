@@ -1,0 +1,53 @@
+#include<vector>
+#include<cstdlib>
+using namespace std;
+
+class Solution {
+public:
+    Solution(vector<vector<int>>& rects) {
+        this->rects = rects;
+        this->numRects = rects.size();
+        int lhs = 0;
+        for(vector<int> &rect: rects){
+            int thisSize = (rect[2]-rect[0]+1) * (rect[3]-rect[1]+1);
+            this->probVec.push_back({lhs, lhs+thisSize});
+            lhs += thisSize;
+        }
+        
+        this->maxWeight = this->probVec[this->probVec.size()-1].second; 
+    }
+    
+    vector<int> pick() {
+        int thisWeight = rand() % maxWeight; 
+        int l = 0, r = probVec.size() - 1, m;
+        while(l<=r){
+            int m = l + (r-l) / 2;
+            int &curLow = probVec[m].first;
+            int &curHigh = probVec[m].second;
+            if(curLow<=thisWeight && thisWeight<curHigh){
+                break;
+            }else if(thisWeight >= curHigh){
+                l = m+1;
+            }else if(thisWeight < curLow){
+                r = m-1;
+            }
+        }
+        int i = m;
+        const vector<int> &thisRect = rects[i];
+
+        int xDiff = thisRect[2] - thisRect[0];
+        int yDiff = thisRect[3] - thisRect[1];
+
+        // 生成[0, xDiff]中的数作为偏移量
+        int xOffset = rand() % (xDiff+1);
+        int yOffset = rand() % (yDiff+1);
+
+        return {thisRect[0]+xOffset, thisRect[1]+yOffset};
+    }
+
+private:
+    vector<vector<int> > rects;
+    vector<pair<int, int> > probVec;
+    int numRects;
+    int maxWeight;
+};

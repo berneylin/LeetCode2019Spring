@@ -6,7 +6,7 @@ public:
         }
         int l = 0, r = nums.size() - 1, pos = -1;
         while(l<=r){
-            int m = l + (r-l) >> 1;
+            int m = l + (r-l)/2;
             if(nums[m]==target){
                 pos = m;
                 break;
@@ -21,7 +21,7 @@ public:
             return 0;
         }
         int cnt = 0;
-        l = pos; r = pos;
+        l = pos; r = pos+1;
         while(l>=0 && nums[l]==target) {
             cnt++;
             l--;
