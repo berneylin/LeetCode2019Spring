@@ -7,11 +7,6 @@ bool cmp(int a, int b){
 }
 
 
-bool cmp(int a, int b){
-    return a>b;
-}
-
-
 class Solution {
 public:
     bool makesquare(vector<int>& nums) {
